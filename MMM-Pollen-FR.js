@@ -22,6 +22,7 @@ Module.register("MMM-Pollen-FR", {
 
     // Override dom generator.
     getDom: function() {
+        console.log("MMM-Pollen-FR : starting generate DOM ...");
         var wrapper = document.createElement("pollen");
 
         if (!this.loaded) {
@@ -29,7 +30,7 @@ Module.register("MMM-Pollen-FR", {
             wrapper.className = "dimmed light small";
             return wrapper;
         }
-
+        
         wrapper.className = 'small bright';
 
         //header row
@@ -57,8 +58,9 @@ Module.register("MMM-Pollen-FR", {
         tr.appendChild(td2);
 
         tbl.appendChild(tr);
+        console.log("MMM-Pollen-FR : starting generate DOM ...");
 
-        if (this.result && this.result.Location) {
+        if (this.result && this.result.risks) {
             var tr = document.createElement("tr");
             var td1 = document.createElement("td");
             td1.innerHTML = this.result.riskLevel;
@@ -67,7 +69,8 @@ Module.register("MMM-Pollen-FR", {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tbl.appendChild(tr);
-
+            console.log("MMM-Pollen-FR : generate risks...");
+            
             this.result.risks.forEach(function(p) {
                 var pollenName = p.pollenName;
                 var level = p.level;

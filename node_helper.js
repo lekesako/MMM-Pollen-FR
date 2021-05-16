@@ -16,6 +16,7 @@ module.exports = NodeHelper.create({
       console.log('requesting:' + url);
       request({ url: url, headers: {'Referer' : url}, method: 'GET' }, function (error, response, body) {
           if (!error && response.statusCode == 200) {
+              console.log("MMM-Pollen-FR : loading data...");
               var result = JSON.parse(body);
               self.sendSocketNotification('POLLEN_RESULT', result);
           } else {
