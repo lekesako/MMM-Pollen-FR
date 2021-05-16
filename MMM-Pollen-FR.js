@@ -12,6 +12,7 @@ Module.register("MMM-Pollen-FR", {
     },
 
     start: function() {
+		this.sendSocketNotification('SET_CONFIG', this.config);
         this.loaded = false;
         this.getData();
         this.scheduleUpdate();
@@ -20,11 +21,21 @@ Module.register("MMM-Pollen-FR", {
     getStyles: function() {
         return ["MMM-Pollen-FR.css"];
     },
+	
+	getHeader: function () {
+		var header = this.data.header;
+		if (this.config.region_code && typeof(this.config.region_code) !== 'undefined') {
+			header += " - " + this.config.region_code
+		}
+		return header;
+	},
 
     // Override dom generator.
     getDom: function() {
 		
         console.log("MMM-Pollen-FR : starting generate DOM ...");
+		var minlevel = this.config.minLevel;
+		
         var wrapper = document.createElement("pollen");
 
         if (!this.loaded) {
@@ -42,12 +53,28 @@ Module.register("MMM-Pollen-FR", {
 		td1.innerHTML = " " 
 		var td2 = document.createElement("td");
 		td2.innerHTML = this.result.countyNumber + " - " +  this.result.countyName
+		var td3 = document.createElement("td");
+		td3.innerHTML = " / Niveau " + this.result.riskLevel
+		var level = this.result.riskLevel
+		
+		if(level >= 5) {
+			td3.className = "pollen-high";
+		} else if(level >= 4) {
+			td3.className = "pollen-mediumhigh";
+		} else if(level >= 3) {
+			td3.className = "pollen-medium";
+		} else if(level >= 2) {
+			td3.className = "pollen-lowmedium";
+		} else if(level >= 1) {
+			td3.className = "pollen-low";
+		}
+		
 		tr.appendChild(td1);
         tr.appendChild(td2);
+		tr.appendChild(td3);
         tbl.appendChild(tr);
 		
         var tr = document.createElement("tr");
-        
         // level description
         var td1 = document.createElement("td");
         td1.className = "pollen-padding";
@@ -73,7 +100,6 @@ Module.register("MMM-Pollen-FR", {
 
         if (this.result && this.result.risks) {
            
-            
             tr.appendChild(td1);
             tr.appendChild(td2);
             tbl.appendChild(tr);
@@ -84,7 +110,7 @@ Module.register("MMM-Pollen-FR", {
                 var level = p.level;
                 var allergens = [];
 
-                if (level > 0) {
+                if (level > minlevel) {
                     allergens.push(pollenName);
                 
 					var td1 = document.createElement("td");

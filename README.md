@@ -17,7 +17,8 @@ modules: [
     header: "Météo Pollen France",
     config: {
         updateInterval: 3 * 60 * 60 * 1000, // every 3 hours
-        region_code: "59"
+        region_code: "59",
+        minLevel: 0
     }
   },
 ]
