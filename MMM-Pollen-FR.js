@@ -65,7 +65,8 @@ Module.register("MMM-Pollen-FR", {
             var td1 = document.createElement("td");
             td1.innerHTML = this.result.riskLevel;
             var td2 = document.createElement("td");
-            td2.innerHTML = " updated !"
+            td2.innerHTML = this.countyName
+            
             tr.appendChild(td1);
             tr.appendChild(td2);
             tbl.appendChild(tr);

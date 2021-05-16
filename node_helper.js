@@ -16,8 +16,10 @@ module.exports = NodeHelper.create({
       console.log('requesting:' + url);
       request({ url: url, headers: {'Referer' : url}, method: 'GET' }, function (error, response, body) {
           if (!error && response.statusCode == 200) {
-              console.log("MMM-Pollen-FR : loading data...");
+              console.log("MMM-Pollen-FR : loading data...for url "+ url);
               var result = JSON.parse(body);
+              console.log("MMM-Pollen-FR : result = "+ result);
+              
               self.sendSocketNotification('POLLEN_RESULT', result);
           } else {
               console.log("MMM-Pollen-FR : Could not load data.");
