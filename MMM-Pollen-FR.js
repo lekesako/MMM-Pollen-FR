@@ -5,10 +5,10 @@ Module.register("MMM-Pollen-FR", {
     result: [],
     // Default module config.
     defaults: {
-        updateInterval: 12 * 60 * 60 * 1000, // every 12 hours
-        region_code: 59,
+        updateInterval: 3 * 60 * 60 * 1000, // every 12 hours
+        region_code: "75",
         fadeSpeed: 2000,
-		minLevel: 3
+		minLevel: 0
     },
 
     start: function() {
@@ -34,7 +34,11 @@ Module.register("MMM-Pollen-FR", {
     getDom: function() {
 		
         console.log("MMM-Pollen-FR : starting generate DOM ...");
-		var minlevel = this.config.minLevel;
+		var minlevel = 0
+
+        if(this.config.minLevel != undefined){
+            minlevel = this.config.minLevel;
+        }
 		
         var wrapper = document.createElement("pollen");
 
@@ -52,26 +56,23 @@ Module.register("MMM-Pollen-FR", {
 		var td1 = document.createElement("td");
 		td1.innerHTML = " " 
 		var td2 = document.createElement("td");
-		td2.innerHTML = this.result.countyNumber + " - " +  this.result.countyName
-		var td3 = document.createElement("td");
-		td3.innerHTML = " / Niveau " + this.result.riskLevel
+		td2.innerHTML = this.result.countyNumber + " - " +  this.result.countyName + " / Niveau " + this.result.riskLevel
 		var level = this.result.riskLevel
 		
 		if(level >= 5) {
-			td3.className = "pollen-high";
+			td2.className = "pollen-high";
 		} else if(level >= 4) {
-			td3.className = "pollen-mediumhigh";
+			td2.className = "pollen-mediumhigh";
 		} else if(level >= 3) {
-			td3.className = "pollen-medium";
+			td2.className = "pollen-medium";
 		} else if(level >= 2) {
-			td3.className = "pollen-lowmedium";
+			td2.className = "pollen-lowmedium";
 		} else if(level >= 1) {
-			td3.className = "pollen-low";
+			td2.className = "pollen-low";
 		}
 		
 		tr.appendChild(td1);
         tr.appendChild(td2);
-		tr.appendChild(td3);
         tbl.appendChild(tr);
 		
         var tr = document.createElement("tr");
@@ -83,7 +84,7 @@ Module.register("MMM-Pollen-FR", {
 
         // pollen
         var td2 = document.createElement("td");
-        td2.className = "align-left";
+        td2.className = "center";
         var icon2 = document.createElement("span");
         icon2.className = " fa fa-pagelines";
 
