@@ -34,6 +34,9 @@ modules: [
 ]
 ```
 
+## Regions & Departement
+you can see this url to get region_code - https://www.regions-et-departements.fr/departements-francais
+
 ## Thanks To...
 - [Michael Teeuw](https://github.com/MichMich) for the [MagicMirror2](https://github.com/MichMich/MagicMirror/tree/develop) framework that made this module possible.
 - [vincep5](https://github.com/vincep5) whose [MMM-Pollen](https://github.com/vincep5/MMM-Pollen) module I use and whose code I learnt a great deal from.
