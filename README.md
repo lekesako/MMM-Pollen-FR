@@ -1,4 +1,4 @@
-# MMM-Pollen
+# MMM-Pollen-FR
 MagicMirror module to get the pollen.fr forecast for your region code
 inspired by WWW-POLLEN https://github.com/vincep5/MMM-Pollen
 
